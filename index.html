@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10b981">
+  <meta name="description" content="Mercado Campesino Digital - Plataforma de venta directa">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg">
+  <title>Mercado Campesino Digital</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script>
+    const isLocalhost = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', async () => {
+        try {
+          if (isLocalhost) {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(registrations.map(registration => registration.unregister()));
+            return;
+          }
+
+          await navigator.serviceWorker.register('/sw.js');
+        } catch (err) {
+          console.log('SW registration failed:', err);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
