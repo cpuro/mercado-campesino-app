@@ -152,6 +152,17 @@ export const authClient = {
     clearLocalUser()
   },
 
+  // Envía un correo con el enlace para restablecer la contraseña.
+  // El enlace lleva a /reset-password, donde se define la nueva clave.
+  async resetPassword(email) {
+    const { error } = await supabase.auth.resetPasswordForEmail(
+      email.toLowerCase().trim(),
+      { redirectTo: `${window.location.origin}/reset-password` }
+    )
+    if (error) throw new Error(error.message)
+    return { success: true }
+  },
+
   // Sesión actual (síncrona, desde localStorage)
   getCurrentSession() {
     const userStr = localStorage.getItem('user')

@@ -70,6 +70,30 @@ class AuthService {
   }
 
   /**
+   * Solicita el envío de un correo para restablecer la contraseña
+   * @param {string} email - Email de la cuenta
+   */
+  async resetPassword(email) {
+    try {
+      if (!this.validateEmail(email)) {
+        throw new Error('Email inválido')
+      }
+
+      await authClient.resetPassword(email)
+
+      return {
+        success: true,
+        message: 'Se envió un email con instrucciones para resetear tu contraseña'
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message
+      }
+    }
+  }
+
+  /**
    * Cierra la sesión actual
    */
   async signOut() {
